@@ -1,5 +1,6 @@
 import discord
 import os
+import random
 from discord.ext import commands
 
 intents = discord.Intents.default()
@@ -30,6 +31,41 @@ async def say(ctx, *, message):
         await ctx.message.delete() 
     except:
         pass
+
+@bot.command()
+async def roll(ctx, *args):
+    if len(args) == 0:
+        min_val = 1
+        max_val = 100
+    elif len(args) == 1:
+        try:
+            max_val = int(args[0])
+            min_val = 1
+            if max_val < 1:
+                await ctx.send("Максимальное число должно быть больше 0")
+                return
+        except ValueError:
+            await ctx.send("Неправильный формат! Используй: `!roll [мин] [макс]`")
+            return
+
+    elif len(args) == 2:
+        try:
+            min_val = int(args[0])
+            max_val = int(args[1])
+            if min_val >= max_val:
+                await ctx.send("Минимальное число должно быть меньше максимального!")
+                return
+        except ValueError:
+            await ctx.send("Неправильный формат! Используй: `!roll [мин] [макс]`")
+            return
+
+    else:
+        await ctx.send("Слишком много аргументов! Используй: `!roll [мин] [макс]`")
+        return
+    
+    result = random.randint(min_val, max_val)
+    
+    await ctx.send(f"Выпало: **{result}**")
 
 @bot.command()
 async def join(ctx):
