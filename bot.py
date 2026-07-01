@@ -52,7 +52,7 @@ async def roll(ctx, *args):
         try:
             min_val = int(args[0])
             max_val = int(args[1])
-            if min_val >= max_val:
+            if min_val > max_val:
                 await ctx.send("Минимальное число должно быть меньше максимального!")
                 return
         except ValueError:
