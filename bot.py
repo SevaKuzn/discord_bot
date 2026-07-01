@@ -34,9 +34,17 @@ async def say(ctx, *, message):
 
 @bot.command()
 async def help(ctx):
+    """Показывает список всех команд бота"""
+    
+    embed = discord.Embed(
+        description="Все мои команды",
+        color=discord.Color.blue()
+    )
+
     for command in sorted(bot.commands, key=lambda x: x.name):
         embed.add_field(
             name=f"!{command.name}",
+            value=description,
             inline=False
         )
     await ctx.send(embed=embed)
