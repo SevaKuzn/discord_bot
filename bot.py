@@ -35,13 +35,7 @@ async def say(ctx, *, message):
 @bot.command()
 async def help(ctx):
     await ctx.send("Все мои команды:")
-    
-    for command in sorted(bot.commands, key=lambda x: x.name):
-        embed.add_field(
-            name=f"!{command.name}",
-            inline=False
-        )
-    await ctx.send(embed=embed)
+    await ctx.send(', '.join(f'!{cmd.name}' for cmd in sorted(bot.commands, key=lambda x: x.name)))
 
 @bot.command()
 async def roll(ctx, *args):
