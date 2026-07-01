@@ -7,7 +7,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.voice_states = True
 
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents, help_command=None)
 
 @bot.event
 async def on_ready():
@@ -33,9 +33,11 @@ async def say(ctx, *, message):
         pass
 
 @bot.command()
-async def commands(ctx):
+async def help(ctx):
+    """Показывает список всех команд"""
     commands_list = [f"!{cmd.name}" for cmd in sorted(bot.commands, key=lambda x: x.name)]
-    await ctx.send(f'Мои команды: {commands_list}')
+    await ctx.send(commands_list)
+    await ctx.send([cmd.name for cmd in bot.commands])
 
 @bot.command()
 async def roll(ctx, *args):
