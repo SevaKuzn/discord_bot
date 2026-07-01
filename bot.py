@@ -34,10 +34,12 @@ async def say(ctx, *, message):
 
 @bot.command()
 async def help(ctx):
-    """Показывает список всех команд"""
-    commands_list = [f"!{cmd.name}" for cmd in sorted(bot.commands, key=lambda x: x.name)]
-    await ctx.send(commands_list)
-    await ctx.send([cmd.name for cmd in bot.commands])
+    for command in sorted(bot.commands, key=lambda x: x.name):
+        embed.add_field(
+            name=f"!{command.name}",
+            inline=False
+        )
+    await ctx.send(embed=embed)
 
 @bot.command()
 async def roll(ctx, *args):
